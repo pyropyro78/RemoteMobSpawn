@@ -1,0 +1,23 @@
+#########################################
+#########################################
+#########################################
+#########################################
+####          RemoteMobSpawn         ####
+####                                 ####
+####               By:               ####
+####                                 ####
+####           Pyropyro78            ####
+####                                 ####
+####   "Human knowledge belongs to   ####
+####           the world."           ####
+####        ~Antitrust(2001)         ####
+#### (www.imdb.com/title/tt0218817/) ####
+#########################################
+#########################################
+#########################################
+#########################################
+
+# When set true this will not enable mobs to spawn if the location is not in air.
+# This is to prevent mobs from dying right when they spawn alerting the player of what is happening.
+# Default is: false.
+SafeSpawn: false
