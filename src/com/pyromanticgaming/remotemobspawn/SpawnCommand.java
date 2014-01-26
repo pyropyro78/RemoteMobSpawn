@@ -81,171 +81,17 @@ public class SpawnCommand extends RemoteMobSpawnCommandExecutor {
 			newloc = new Location(loc.getWorld(), loc.getX() + disx,
 					loc.getY(), loc.getZ() + disz);
 		}
-
-		if (args[0].equalsIgnoreCase(EntityType.BAT.getName())) {
+		String uppername = args[0].toUpperCase();
+		if(EntityType.valueOf(uppername).isSpawnable()) {
 			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.BAT);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.CREEPER.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.CREEPER);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.BLAZE.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.BLAZE);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.ZOMBIE.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.ZOMBIE);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.PIG_ZOMBIE.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.PIG_ZOMBIE);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.CAVE_SPIDER.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.CAVE_SPIDER);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.CHICKEN.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.CHICKEN);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.COW.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.COW);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.PIG.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.PIG);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.ENDER_DRAGON.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.ENDER_DRAGON);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.ENDERMAN.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.ENDERMAN);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.GHAST.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.GHAST);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.GIANT.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.GIANT);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.IRON_GOLEM.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.IRON_GOLEM);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.MAGMA_CUBE.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.MAGMA_CUBE);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.OCELOT.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.OCELOT);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.SHEEP.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.SHEEP);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.SILVERFISH.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.SILVERFISH);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.SKELETON.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.SKELETON);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.SLIME.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.SLIME);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.SNOWMAN.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.SNOWMAN);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.SPIDER.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.SPIDER);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.SQUID.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.SQUID);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.VILLAGER.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.VILLAGER);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.WITCH.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.WITCH);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.WITHER.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.WITHER);
-				amount--;
-			}
-			return;
-		} else if (args[0].equalsIgnoreCase(EntityType.WOLF.getName())) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.WOLF);
+				player.getWorld().spawnEntity(newloc, EntityType.valueOf(uppername));
 				amount--;
 			}
 			return;
 		}
-
+		else if(!EntityType.valueOf(uppername).isSpawnable()) {
+			player.sendMessage("That is not a proper spelling or that is not a mob.");
+		}
 	}
 
 }

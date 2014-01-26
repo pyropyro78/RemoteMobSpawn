@@ -1,1 +1,0 @@
-have command handlers handle parsing args to determine amounts.
