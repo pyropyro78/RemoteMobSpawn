@@ -1,4 +1,5 @@
 The goal of this plugin is to allow an admin or a person with the permissions to remotely spawn mobs on or near a player via commands. The use of this plugin would be for events where you need to spawn mobs but don't want them to be near another player, or to just mess with your players and spawn them nearby. This will also allow the casting of mobs at the caster's location.
+
 Works with command blocks!
 
 Permissions:
@@ -27,10 +28,12 @@ Features:
     Spawn mobs on other players.
     Spawn mobs on yourself. 
 
-Notes:
+Config:
 
-    Withers and Ender Dragons will not spawn yet. 
-
-    Skeletons do not spawn with a bow, I am trying to figure this out, it seems like quite a few people are having issues with it but there has to be a workaround for it. 
+    When set true this will not enable mobs to spawn if the location is not in air.
+    This is to prevent mobs from dying right when they spawn alerting the player of what is happening.
+    Default is: false. 
+    
+    SafeSpawn: false
 
 This plugin was authored by pyropyro78.
