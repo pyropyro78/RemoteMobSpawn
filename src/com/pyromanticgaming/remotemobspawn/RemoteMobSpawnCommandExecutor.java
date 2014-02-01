@@ -117,6 +117,7 @@ public class RemoteMobSpawnCommandExecutor implements CommandExecutor {
 	static void InfoSection(CommandSender sender) {
 		sender.sendMessage("/rms [player] [mob] [amount] [distance] - Spawns on other");
 		sender.sendMessage("/rms [mob] [amount] [distance] - Spawns on self");
+		sender.sendMessage("If a mob has 2 words in the name use _ like so: ender_dragon");
 	}
 
 }
