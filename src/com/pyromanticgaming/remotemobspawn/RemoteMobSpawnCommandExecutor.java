@@ -59,7 +59,7 @@ public class RemoteMobSpawnCommandExecutor implements CommandExecutor {
 						}
 						if (playerList.contains(args[0])) {
 							// PLAYER0 MOB1 AMOUNT2 DISTANCE3
-							Player player1 = Bukkit.getPlayer(args[0]);
+							Player player1 = Bukkit.getPlayerExact(args[0]);
 							if (args[0].equals(player1.getName())
 									&& canRemoteSpawn) {
 								if (args[0].equals(sender.getName())

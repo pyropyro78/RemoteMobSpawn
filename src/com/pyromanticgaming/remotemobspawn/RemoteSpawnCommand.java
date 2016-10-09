@@ -95,7 +95,7 @@ public class RemoteSpawnCommand extends RemoteMobSpawnCommandExecutor {
 				newloc = new Location(loc.getWorld(), loc.getX() + disx,
 						loc.getY(), loc.getZ() + disz);
 			}
-			String uppername = args[0].toUpperCase();
+			String uppername = args[1].toUpperCase();
 			if(EntityType.valueOf(uppername).isSpawnable()) {
 				while (amount > 0) {
 					player1.getWorld().spawnEntity(newloc, EntityType.valueOf(uppername));
