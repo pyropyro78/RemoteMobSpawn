@@ -1,5 +1,5 @@
 name: RemoteMobSpawn
-version: 2.1.1.0
+version: 2.1.1.1
 description: Spawns mobs on or near a player from anywhere on the server.
 author: pyropyro78
 main: com.pyromanticgaming.remotemobspawn.RemoteMobSpawn
@@ -7,6 +7,7 @@ commands:
    rms:
       description: Spawns mobs on or near a player from anywhere on the server.
       usage: |
+        /rms all [mob] [amount] [distance] - Spawns on all players
         /rms [player] [mob] [amount] [distance] - Spawns on other
         /rms [mob] [amount] [distance] - Spawns on self
 aliases:

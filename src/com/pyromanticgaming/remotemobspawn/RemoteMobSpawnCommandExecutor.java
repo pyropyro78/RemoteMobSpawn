@@ -1,7 +1,7 @@
 package com.pyromanticgaming.remotemobspawn;
 
 /*
-*Copyright (c) <2013-2014>, <pyropyro78>, <pyropyro78@gmail.com>
+*Copyright (c) <2013-2016>, <pyropyro78>, <pyropyro78@gmail.com>
 *All rights reserved.
 *
 *Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -26,10 +26,10 @@ public class RemoteMobSpawnCommandExecutor implements CommandExecutor {
 
 	public static Set<String> playerList = new HashSet<String>();
 
-	private RemoteMobSpawn remotemobspawn;
+	protected static RemoteMobSpawn remotemobspawn;
 
 	public RemoteMobSpawnCommandExecutor(RemoteMobSpawn remotemobspawn) {
-		this.remotemobspawn = remotemobspawn;
+		RemoteMobSpawnCommandExecutor.remotemobspawn = remotemobspawn;
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
@@ -42,6 +42,8 @@ public class RemoteMobSpawnCommandExecutor implements CommandExecutor {
 					|| sender.isOp();
 			boolean canRemoteSpawn = sender
 					.hasPermission("RemoteMobSpawn.spawn.other")
+					|| sender.isOp();
+			boolean canAll = sender.hasPermission("RemoteMobSpawn.all")
 					|| sender.isOp();
 			boolean canStar = sender.hasPermission("RemoteMobSpawn.*")
 					|| sender.isOp();
@@ -81,6 +83,12 @@ public class RemoteMobSpawnCommandExecutor implements CommandExecutor {
 								return true;
 							}
 						}
+						if (canAll) {
+							if (args[0].toUpperCase().contentEquals("ALL")) {
+								AllSpawnCommand.allspawncommand(sender, args);
+								return true;
+							}
+						}
 					} else {
 						sender.sendMessage("RemoteMobSpawn - You do not have permission for that.");
 						return true;
@@ -115,6 +123,7 @@ public class RemoteMobSpawnCommandExecutor implements CommandExecutor {
 	}
 
 	static void InfoSection(CommandSender sender) {
+		sender.sendMessage("/rms all [mob] [amount] [distance] - Spawns on all players");
 		sender.sendMessage("/rms [player] [mob] [amount] [distance] - Spawns on other");
 		sender.sendMessage("/rms [mob] [amount] [distance] - Spawns on self");
 		sender.sendMessage("If a mob has 2 words in the name use _ like so: ender_dragon");

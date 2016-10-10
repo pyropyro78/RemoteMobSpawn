@@ -17,18 +17,17 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
-public class RemoteSpawnCommand extends RemoteMobSpawnCommandExecutor {
+public class AllSpawnCommand extends RemoteMobSpawnCommandExecutor {
 
-	public RemoteSpawnCommand(RemoteMobSpawn remotemobspawn) {
+	public AllSpawnCommand(RemoteMobSpawn remotemobspawn) {
 		super(remotemobspawn);
 	}
 
-	static void remotespawncommand(CommandSender sender, String[] args,
-			Player player1) {
+	static void allspawncommand(CommandSender sender, String[] args) {
 		int amount = 1;
 		int distance = 0;
 		boolean check = false;
-		// PLAYER0 MOB1 AMOUNT2 DISTANCE3
+		// ALL0 MOB1 AMOUNT2 DISTANCE3
 		if (args.length == 1) {
 
 			sender.sendMessage("Not enough arguments.");
@@ -55,57 +54,65 @@ public class RemoteSpawnCommand extends RemoteMobSpawnCommandExecutor {
 		}
 
 		if (check == true) {
-			Location loc = player1.getLocation();
-			int disx = 0;
-			int disz = 0;
-			double direction = (loc.getYaw());
-
-			// W
-			if (direction >= 45 && direction <= 134.9) {
-				disx = disx - distance;
-			}
-
-			// E
-			if (direction >= -134.9 && direction <= -45) {
-				disx = disx + distance;
-			}
-
-			// N
-			if (direction <= -135 || direction >= 135) {
-				disz = disz - distance;
-			}
-
-			// S
-			if (direction >= -44.9 && direction <= 44.9) {
-				disz = disz + distance;
-			}
 			
-			Location newloc, newloc1;
+			for (Player player1 : remotemobspawn.getServer()
+						.getOnlinePlayers()) {
+			
+				Location loc = player1.getLocation();
+				int disx = 0;
+				int disz = 0;
+				double direction = (loc.getYaw());
 
-			if (RemoteMobSpawn.SafeSpawn) {
-			newloc = new Location(loc.getWorld(), loc.getX() + disx,
-					loc.getY(), loc.getZ() + disz);
-			newloc1 = new Location(loc.getWorld(), loc.getX() + disx,
-					loc.getY() + 1, loc.getZ() + disz);
-			if (newloc.getBlock().getType().isSolid() || newloc1.getBlock().getType().isSolid()) {
-				sender.sendMessage("Mob Spawning has failed - Block in location of spawning");
-				amount = 0;
-			}
-			} else {
+				// W
+				if (direction >= 45 && direction <= 134.9) {
+					disx = disx - distance;
+				}
+
+				// E
+				if (direction >= -134.9 && direction <= -45) {
+					disx = disx + distance;
+				}
+
+				// N
+				if (direction <= -135 || direction >= 135) {
+					disz = disz - distance;
+				}
+
+				// S
+				if (direction >= -44.9 && direction <= 44.9) {
+					disz = disz + distance;
+				}
+			
+				Location newloc, newloc1;
+
+				if (RemoteMobSpawn.SafeSpawn) {
 				newloc = new Location(loc.getWorld(), loc.getX() + disx,
 						loc.getY(), loc.getZ() + disz);
-			}
-			String uppername = args[1].toUpperCase();
-			if(EntityType.valueOf(uppername).isSpawnable()) {
-				while (amount > 0) {
-					player1.getWorld().spawnEntity(newloc, EntityType.valueOf(uppername));
-					amount--;
+				newloc1 = new Location(loc.getWorld(), loc.getX() + disx,
+						loc.getY() + 1, loc.getZ() + disz);
+				if (newloc.getBlock().getType().isSolid() || newloc1.getBlock().getType().isSolid()) {
+					sender.sendMessage("Mob Spawning has failed - Block in location of spawning");
+					amount = 0;
 				}
-				return;
+				} else {
+					newloc = new Location(loc.getWorld(), loc.getX() + disx,
+							loc.getY(), loc.getZ() + disz);
+				}
+				String uppername = args[1].toUpperCase();
+				if(EntityType.valueOf(uppername).isSpawnable()) {
+					int saveamount = amount;
+					while (amount > 0) {
+						player1.getWorld().spawnEntity(newloc, EntityType.valueOf(uppername));
+						amount--;
+					}
+					amount = saveamount;
+					//return;
+				}
+				else if(!EntityType.valueOf(uppername).isSpawnable()) {
+					sender.sendMessage("That is not a proper spelling or that is not a mob.");
+				}
 			}
-			else if(!EntityType.valueOf(uppername).isSpawnable()) {
-				sender.sendMessage("That is not a proper spelling or that is not a mob.");
-			}
+			return;
 		}
 
 	}
