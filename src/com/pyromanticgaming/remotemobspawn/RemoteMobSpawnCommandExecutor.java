@@ -43,7 +43,7 @@ public class RemoteMobSpawnCommandExecutor implements CommandExecutor {
 			boolean canRemoteSpawn = sender
 					.hasPermission("RemoteMobSpawn.spawn.other")
 					|| sender.isOp();
-			boolean canAll = sender.hasPermission("RemoteMobSpawn.all")
+			boolean canAll = sender.hasPermission("RemoteMobSpawn.spawn.all")
 					|| sender.isOp();
 			boolean canStar = sender.hasPermission("RemoteMobSpawn.*")
 					|| sender.isOp();
