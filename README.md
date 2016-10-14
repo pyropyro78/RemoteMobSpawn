@@ -6,6 +6,7 @@ Permissions:
 
     RemoteMobSpawn.spawn.self - Allows sender to cast /rms without a player set
     RemoteMobSpawn.spawn.other - Allows sender to cast /rms [player] 
+    RemoteMobSpawn.all - Allows sender to cast /rms all (corrected to RemoteMobSpawn.spawn.all in future releases)
 
 Commands:
 
