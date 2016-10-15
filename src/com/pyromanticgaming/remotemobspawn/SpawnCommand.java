@@ -84,7 +84,7 @@ public class SpawnCommand extends RemoteMobSpawnCommandExecutor {
 		String uppername = args[0].toUpperCase();
 		if(EntityType.valueOf(uppername).isSpawnable()) {
 			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.valueOf(uppername));
+				player.getWorld().spawnEntity(newloc, EntityType.valueOf(uppername)).setGlowing(RemoteMobSpawn.Glow);
 				amount--;
 			}
 			return;

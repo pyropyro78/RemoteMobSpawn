@@ -37,13 +37,13 @@ public class RemoteMobSpawnCommandExecutor implements CommandExecutor {
 
 		if (cmd.getName().equalsIgnoreCase("rms")) {
 
-			boolean canSpawn = sender
-					.hasPermission("RemoteMobSpawn.spawn.self")
+			boolean canSpawn = sender.hasPermission("RemoteMobSpawn.spawn.self")
 					|| sender.isOp();
-			boolean canRemoteSpawn = sender
-					.hasPermission("RemoteMobSpawn.spawn.other")
+			boolean canRemoteSpawn = sender.hasPermission("RemoteMobSpawn.spawn.other")
 					|| sender.isOp();
 			boolean canAll = sender.hasPermission("RemoteMobSpawn.spawn.all")
+					|| sender.isOp();
+			boolean canModify = sender.hasPermission("RemoteMobSpawn.modify")
 					|| sender.isOp();
 			boolean canStar = sender.hasPermission("RemoteMobSpawn.*")
 					|| sender.isOp();
@@ -89,6 +89,52 @@ public class RemoteMobSpawnCommandExecutor implements CommandExecutor {
 								return true;
 							}
 						}
+						if (canModify) {
+							if (args[0].toUpperCase().contains("GLOW")) {
+								if (args.length > 1) {
+									if (args[1].toUpperCase().contentEquals("ON")) {
+										remotemobspawn.getConfig().set("Glow", true);
+										remotemobspawn.saveConfig();
+										RemoteMobSpawn.Glow = true;
+										remotemobspawn.getLogger().info("Glow Spawning Enabled in Config by " + sender.getName() + ".");
+										sender.sendMessage("Glow Spawning set to On");
+										return true;
+									} else if (args[1].toUpperCase().contentEquals("OFF")) {
+										remotemobspawn.getConfig().set("Glow", false);
+										remotemobspawn.saveConfig();
+										RemoteMobSpawn.Glow = false;
+										remotemobspawn.getLogger().info("Glow Spawning Disabled in Config by " + sender.getName() + ".");
+										sender.sendMessage("Glow Spawning set to Off");
+										return true;
+									} else {
+										sender.sendMessage("Invalid Args - /rms glow [1 for on 0 for off]");
+									}
+								}
+								return true;
+							}
+							if (args[0].toUpperCase().contains("SAFESPAWN")) {
+								if (args.length > 1) {
+									if (args[1].toUpperCase().contentEquals("ON")) {
+										remotemobspawn.getConfig().set("SafeSpawn", true);
+										remotemobspawn.saveConfig();
+										RemoteMobSpawn.SafeSpawn = true;
+										remotemobspawn.getLogger().info("SafeSpawn Enabled in Config by " + sender.getName() + ".");
+										sender.sendMessage("SafeSpawn set to On");
+										return true;
+									} else if (args[1].toUpperCase().contentEquals("OFF")) {
+										remotemobspawn.getConfig().set("SafeSpawn", false);
+										remotemobspawn.saveConfig();
+										RemoteMobSpawn.SafeSpawn = false;
+										remotemobspawn.getLogger().info("SafeSpawn Disabled in Config by " + sender.getName() + ".");
+										sender.sendMessage("SafeSpawn set to Off");
+										return true;
+									} else {
+										sender.sendMessage("Invalid Args - /rms safespawn [on or off]");
+									}
+								}
+								return true;
+							}
+						}
 					} else {
 						sender.sendMessage("RemoteMobSpawn - You do not have permission for that.");
 						return true;
@@ -114,7 +160,6 @@ public class RemoteMobSpawnCommandExecutor implements CommandExecutor {
 				}
 			}
 		}
-
 		return false;
 	}
 	

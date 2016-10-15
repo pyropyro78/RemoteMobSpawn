@@ -102,7 +102,7 @@ public class AllSpawnCommand extends RemoteMobSpawnCommandExecutor {
 				if(EntityType.valueOf(uppername).isSpawnable()) {
 					int saveamount = amount;
 					while (amount > 0) {
-						player1.getWorld().spawnEntity(newloc, EntityType.valueOf(uppername));
+						player1.getWorld().spawnEntity(newloc, EntityType.valueOf(uppername)).setGlowing(RemoteMobSpawn.Glow);
 						amount--;
 					}
 					amount = saveamount;

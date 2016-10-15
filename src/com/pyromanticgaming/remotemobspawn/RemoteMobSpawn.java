@@ -19,6 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class RemoteMobSpawn extends JavaPlugin implements Listener {
 
 	public static boolean SafeSpawn = false;
+	public static boolean Glow = false;
 	
 	@Override
 	public void onEnable() {
@@ -31,6 +32,13 @@ public class RemoteMobSpawn extends JavaPlugin implements Listener {
 			getLogger().info("SafeSpawning Enabled in Config.");
 		} else {
 			getLogger().info("SafeSpawning Disabled in Config.");
+		}
+		
+		Glow = this.getConfig().getBoolean("Glow");
+		if (Glow) {
+			getLogger().info("Glow Spawning Enabled in Config.");
+		} else {
+			getLogger().info("Glow Spawning Disabled in Config.");
 		}
 		
 		getLogger().info("RemoteMobSpawn has been enabled.");

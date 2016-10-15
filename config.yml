@@ -1,19 +1,2 @@
-#########################################
-#########################################
-#########################################
-#########################################
-####          RemoteMobSpawn         ####
-####                                 ####
-####               By:               ####
-####                                 ####
-####           Pyropyro78            ####
-####                                 ####
-#########################################
-#########################################
-#########################################
-#########################################
-
-# When set true this will not enable mobs to spawn if the location is not in air.
-# This is to prevent mobs from dying right when they spawn alerting the player of what is happening.
-# Default is: false.
 SafeSpawn: false
+Glow: false

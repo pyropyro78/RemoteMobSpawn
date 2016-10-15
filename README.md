@@ -6,16 +6,16 @@ Permissions:
 
     RemoteMobSpawn.spawn.self - Allows sender to cast /rms without a player set
     RemoteMobSpawn.spawn.other - Allows sender to cast /rms [player] 
-    RemoteMobSpawn.all - Allows sender to cast /rms all (corrected to RemoteMobSpawn.spawn.all in future releases)
+    RemoteMobSpawn.spawn.all - Allows sender to cast /rms all
+    RemoteMobSpawn.modify - Allows sender to cast /rms glow/safespawn
 
 Commands:
 
     /rms [player] [mob] [amount] [distance] - Spawns on other
     /rms [mob] [amount] [distance] - Spawns on self 
-    
-    (as of v2.1.1.1+)
-
     /rms all [mob] [amount] [distance] - Spawns on all players 
+    /rms glow [on/off] - Toggles glow spawning on or off
+    /rms safespawn [on/off] - Toggles safe spawning on/off
 
 Use a negative distance to spawn behind the target or yourself. ex: /rms bat 1 -2
 
@@ -32,34 +32,20 @@ Features:
 
     Spawn mobs on other players.
     Spawn mobs on yourself. 
-    
-    (as of v2.1.1.1+)
-
     Spawns mobs on All players 
 
 Config:
 
-    When set true this will not enable mobs to spawn if the location is not in air.
-    This is to prevent mobs from dying right when they spawn alerting the player of what is happening.
-    Default is: false. 
+     When set true this will not enable mobs to spawn if the location is not in air (Will not spawn within a block).
+     This is to prevent mobs from dying right when they spawn alerting the player of what is happening.
+     Default is: false. 
     
     SafeSpawn: false
     
-Metrics:
+      When set to true mobs spawned with the plugin will have a glow border set to them.
+      Default is: false.
+     
+     Glow: false
 
-(Not in v2.1.1.0+)
-
-This plugin utilizes Hidendra's plugin metrics system, which means that the following information is collected and sent to mcstats.org:
-
-    A unique identifier
-    The server's version of Java
-    Whether the server is in offline or online mode
-    The plugin's version
-    The server's version
-    The OS version/name and architecture
-    The core count for the CPU
-    The number of players online
-    The Metrics version
-    You can disable the stat collection via /plugins/PluginMetrics/config.yml if you wish. (But that is not very nice :( ) 
 
 This plugin was authored by pyropyro78.
