@@ -54,7 +54,6 @@ public class AllSpawnCommand extends RemoteMobSpawnCommandExecutor {
 		}
 
 		if (check == true) {
-			
 			for (Player player1 : remotemobspawn.getServer()
 						.getOnlinePlayers()) {
 			
@@ -91,7 +90,6 @@ public class AllSpawnCommand extends RemoteMobSpawnCommandExecutor {
 				newloc1 = new Location(loc.getWorld(), loc.getX() + disx,
 						loc.getY() + 1, loc.getZ() + disz);
 				if (newloc.getBlock().getType().isSolid() || newloc1.getBlock().getType().isSolid()) {
-					sender.sendMessage("Mob Spawning has failed - Block in location of spawning");
 					amount = 0;
 				}
 				} else {
