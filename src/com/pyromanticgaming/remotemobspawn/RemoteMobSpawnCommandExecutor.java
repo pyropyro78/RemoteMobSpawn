@@ -32,8 +32,7 @@ public class RemoteMobSpawnCommandExecutor implements CommandExecutor {
 		RemoteMobSpawnCommandExecutor.remotemobspawn = remotemobspawn;
 	}
 
-	public boolean onCommand(CommandSender sender, Command cmd, String label,
-			String[] args) {
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
 		if (cmd.getName().equalsIgnoreCase("rms")) {
 
@@ -45,12 +44,7 @@ public class RemoteMobSpawnCommandExecutor implements CommandExecutor {
 					|| sender.isOp();
 			boolean canModify = sender.hasPermission("RemoteMobSpawn.modify")
 					|| sender.isOp();
-			boolean canStar = sender.hasPermission("RemoteMobSpawn.*")
-					|| sender.isOp();
-			if (!canStar && !sender.isOp()) {
-				sender.sendMessage("RemoteMobSpawn - You do not have permission for that.");
-				return true;
-			} else {
+
 				if (args.length > 0) {
 					if (canRemoteSpawn) {
 						playerList.clear();
@@ -158,7 +152,7 @@ public class RemoteMobSpawnCommandExecutor implements CommandExecutor {
 						return true;
 					}
 				}
-			}
+			
 		}
 		return false;
 	}
