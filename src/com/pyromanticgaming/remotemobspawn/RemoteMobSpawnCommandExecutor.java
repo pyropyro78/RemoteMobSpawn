@@ -43,8 +43,7 @@ public class RemoteMobSpawnCommandExecutor implements CommandExecutor {
 				if (args.length > 0) {
 					if (canRemoteSpawn) {
 						playerList.clear();
-						for (Player otherPlayer : remotemobspawn.getServer()
-								.getOnlinePlayers()) {
+						for (Player otherPlayer : remotemobspawn.getServer().getOnlinePlayers()) {
 							// Add online users to the playerList HashMap
 							playerList.add(otherPlayer.getName());
 						}
