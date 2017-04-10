@@ -160,6 +160,8 @@ public class RemoteMobSpawnCommandExecutor implements CommandExecutor {
 		sender.sendMessage("/rms all [mob] [amount] [distance] - Spawns on all players");
 		sender.sendMessage("/rms [player] [mob] [amount] [distance] - Spawns on other");
 		sender.sendMessage("/rms [mob] [amount] [distance] - Spawns on self");
+		sender.sendMessage("/rms glow [on/off] - Toggles glow spawning on or off");
+		sender.sendMessage("/rms safespawn [on/off] - Toggles safe spawning on/off");
 		sender.sendMessage("If a mob has 2 words in the name use _ like so: ender_dragon");
 	}
 
