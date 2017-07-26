@@ -1,18 +1,18 @@
 package com.pyromanticgaming.remotemobspawn;
 
 /*
-*Copyright (c) <2013-2017>, <pyropyro78>, <pyropyro78@gmail.com>
-*All rights reserved.
-*
-*THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ *Copyright (c) <2013-2017>, <pyropyro78 / Bradley Van Dyne>, <pyropyro78@gmail.com>
+ *All rights reserved.
+ *
+ *THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
-public class AllSpawnCommand extends RemoteMobSpawnCommandExecutor {
+public class AllSpawnCommand extends MainCommandHandler {
 
 	public AllSpawnCommand(RemoteMobSpawn remotemobspawn) {
 		super(remotemobspawn);
@@ -25,7 +25,7 @@ public class AllSpawnCommand extends RemoteMobSpawnCommandExecutor {
 		// ALL0 MOB1 AMOUNT2 DISTANCE3
 		if (args.length == 1) {
 
-			sender.sendMessage("Not enough arguments.");
+			InfoDisplays.InvalidNumberOfArgs(sender);
 
 			return;
 		} else if (args.length == 2) {
@@ -44,14 +44,14 @@ public class AllSpawnCommand extends RemoteMobSpawnCommandExecutor {
 			check = true;
 
 		} else {
-			sender.sendMessage("Invalid number of args");
-			RemoteMobSpawnCommandExecutor.InfoSection(sender);
+			InfoDisplays.InvalidNumberOfArgs(sender);
+			InfoDisplays.InfoSection(sender);
 		}
 
 		if (check == true) {
 			for (Player player1 : remotemobspawn.getServer()
-						.getOnlinePlayers()) {
-			
+					.getOnlinePlayers()) {
+
 				Location loc = player1.getLocation();
 				int disx = 0;
 				int disz = 0;
@@ -76,33 +76,32 @@ public class AllSpawnCommand extends RemoteMobSpawnCommandExecutor {
 				if (direction >= -44.9 && direction <= 44.9) {
 					disz = disz + distance;
 				}
-			
+
 				Location newloc, newloc1;
 
-				if (RemoteMobSpawn.SafeSpawn) {
-				newloc = new Location(loc.getWorld(), loc.getX() + disx,
-						loc.getY(), loc.getZ() + disz);
-				newloc1 = new Location(loc.getWorld(), loc.getX() + disx,
-						loc.getY() + 1, loc.getZ() + disz);
-				if (newloc.getBlock().getType().isSolid() || newloc1.getBlock().getType().isSolid()) {
-					amount = 0;
-				}
+				if (MainConfig.SafeSpawn) {
+					newloc = new Location(loc.getWorld(), loc.getX() + disx,
+							loc.getY(), loc.getZ() + disz);
+					newloc1 = new Location(loc.getWorld(), loc.getX() + disx,
+							loc.getY() + 1, loc.getZ() + disz);
+					if (newloc.getBlock().getType().isSolid() || newloc1.getBlock().getType().isSolid()) {
+						amount = 0;
+					}
 				} else {
 					newloc = new Location(loc.getWorld(), loc.getX() + disx,
 							loc.getY(), loc.getZ() + disz);
 				}
 				String uppername = args[1].toUpperCase();
 				if(EntityType.valueOf(uppername).isSpawnable()) {
-					int saveamount = amount;
+					int saveamount = amount; //amount is saved as here and later reset back as this is cycled through for each player
 					while (amount > 0) {
-						player1.getWorld().spawnEntity(newloc, EntityType.valueOf(uppername)).setGlowing(RemoteMobSpawn.Glow);
+						player1.getWorld().spawnEntity(newloc, EntityType.valueOf(uppername));
 						amount--;
 					}
 					amount = saveamount;
-					//return;
 				}
 				else if(!EntityType.valueOf(uppername).isSpawnable()) {
-					sender.sendMessage("That is not a proper spelling or that is not a mob.");
+					InfoDisplays.InvalidMob(sender);
 				}
 			}
 			return;
