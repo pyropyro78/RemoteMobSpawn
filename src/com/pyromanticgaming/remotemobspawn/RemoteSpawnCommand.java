@@ -12,10 +12,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
-public class RemoteSpawnCommand extends MainCommandHandler {
+public class RemoteSpawnCommand {
 
-	public RemoteSpawnCommand(RemoteMobSpawn remotemobspawn) {
-		super(remotemobspawn);
+	@SuppressWarnings("unused")
+	private static RemoteMobSpawn plugin;
+
+	public RemoteSpawnCommand(RemoteMobSpawn instance) {
+		plugin = instance;
 	}
 
 	static void remotespawncommand(CommandSender sender, String[] args,
@@ -55,41 +58,12 @@ public class RemoteSpawnCommand extends MainCommandHandler {
 			int disz = 0;
 			double direction = (loc.getYaw());
 
-			// W
-			if (direction >= 45 && direction <= 134.9) {
-				disx = disx - distance;
-			}
+			SimplifiedSpawning.FindRelativeDirection(distance, disx, disz, direction);
 
-			// E
-			if (direction >= -134.9 && direction <= -45) {
-				disx = disx + distance;
-			}
+			Location newloc = null;
 
-			// N
-			if (direction <= -135 || direction >= 135) {
-				disz = disz - distance;
-			}
-
-			// S
-			if (direction >= -44.9 && direction <= 44.9) {
-				disz = disz + distance;
-			}
-
-			Location newloc, newloc1;
-
-			if (MainConfig.SafeSpawn) {
-				newloc = new Location(loc.getWorld(), loc.getX() + disx,
-						loc.getY(), loc.getZ() + disz);
-				newloc1 = new Location(loc.getWorld(), loc.getX() + disx,
-						loc.getY() + 1, loc.getZ() + disz);
-				if (newloc.getBlock().getType().isSolid() || newloc1.getBlock().getType().isSolid()) {
-					InfoDisplays.SafeSpawnFail(sender);
-					amount = 0;
-				}
-			} else {
-				newloc = new Location(loc.getWorld(), loc.getX() + disx,
-						loc.getY(), loc.getZ() + disz);
-			}
+			SimplifiedSpawning.SafeSpawning(loc, newloc, disx, disz, sender, amount);
+			
 			String uppername = args[1].toUpperCase();
 			if(EntityType.valueOf(uppername).isSpawnable()) {
 				while (amount > 0) {

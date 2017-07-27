@@ -16,10 +16,7 @@ import org.bukkit.entity.Player;
 
 public class MainCommandHandler implements CommandExecutor {
 
-	protected static RemoteMobSpawn remotemobspawn;
-
 	public MainCommandHandler(RemoteMobSpawn remotemobspawn) {
-		MainCommandHandler.remotemobspawn = remotemobspawn;
 	}
 
 	@SuppressWarnings("deprecation")

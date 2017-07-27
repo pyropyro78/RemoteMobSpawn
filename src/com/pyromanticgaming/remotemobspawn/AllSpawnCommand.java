@@ -12,10 +12,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
-public class AllSpawnCommand extends MainCommandHandler {
+public class AllSpawnCommand {
 
-	public AllSpawnCommand(RemoteMobSpawn remotemobspawn) {
-		super(remotemobspawn);
+	private static RemoteMobSpawn plugin;
+
+	public AllSpawnCommand(RemoteMobSpawn instance) {
+		plugin = instance;
 	}
 
 	static void allspawncommand(CommandSender sender, String[] args) {
@@ -49,7 +51,7 @@ public class AllSpawnCommand extends MainCommandHandler {
 		}
 
 		if (check == true) {
-			for (Player player1 : remotemobspawn.getServer()
+			for (Player player1 : plugin.getServer()
 					.getOnlinePlayers()) {
 
 				Location loc = player1.getLocation();
@@ -57,40 +59,11 @@ public class AllSpawnCommand extends MainCommandHandler {
 				int disz = 0;
 				double direction = (loc.getYaw());
 
-				// W
-				if (direction >= 45 && direction <= 134.9) {
-					disx = disx - distance;
-				}
+				SimplifiedSpawning.FindRelativeDirection(distance, disx, disz, direction);
+				Location newloc = null;
 
-				// E
-				if (direction >= -134.9 && direction <= -45) {
-					disx = disx + distance;
-				}
-
-				// N
-				if (direction <= -135 || direction >= 135) {
-					disz = disz - distance;
-				}
-
-				// S
-				if (direction >= -44.9 && direction <= 44.9) {
-					disz = disz + distance;
-				}
-
-				Location newloc, newloc1;
-
-				if (MainConfig.SafeSpawn) {
-					newloc = new Location(loc.getWorld(), loc.getX() + disx,
-							loc.getY(), loc.getZ() + disz);
-					newloc1 = new Location(loc.getWorld(), loc.getX() + disx,
-							loc.getY() + 1, loc.getZ() + disz);
-					if (newloc.getBlock().getType().isSolid() || newloc1.getBlock().getType().isSolid()) {
-						amount = 0;
-					}
-				} else {
-					newloc = new Location(loc.getWorld(), loc.getX() + disx,
-							loc.getY(), loc.getZ() + disz);
-				}
+				SimplifiedSpawning.SafeSpawning(loc, newloc, disx, disz, sender, amount);
+				
 				String uppername = args[1].toUpperCase();
 				if(EntityType.valueOf(uppername).isSpawnable()) {
 					int saveamount = amount; //amount is saved as here and later reset back as this is cycled through for each player
