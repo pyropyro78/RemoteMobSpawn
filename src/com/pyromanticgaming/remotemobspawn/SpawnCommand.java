@@ -9,7 +9,6 @@ package com.pyromanticgaming.remotemobspawn;
 
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 public class SpawnCommand {
@@ -50,16 +49,8 @@ public class SpawnCommand {
 		SimplifiedSpawning.SafeSpawning(loc, newloc, disx, disz, sender, amount);
 		
 		String uppername = args[0].toUpperCase();
-		if(EntityType.valueOf(uppername).isSpawnable()) {
-			while (amount > 0) {
-				player.getWorld().spawnEntity(newloc, EntityType.valueOf(uppername)).setGlowing(MainConfig.Glow);
-				amount--;
-			}
-			return;
-		}
-		else if(!EntityType.valueOf(uppername).isSpawnable()) {
-			InfoDisplays.InvalidMob(sender);
-		}
+		
+		SimplifiedSpawning.Spawn(uppername, player, newloc, disz, sender);
 	}
 
 }

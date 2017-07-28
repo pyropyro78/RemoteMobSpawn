@@ -20,6 +20,7 @@ public class RemoteMobSpawn extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents((Listener) this, this);
 
 		this.saveDefaultConfig();
+		new MainConfig(this);
 		MainConfig.GetMainValues();
 
 		if (MainConfig.SafeSpawn) {

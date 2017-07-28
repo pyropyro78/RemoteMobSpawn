@@ -17,8 +17,8 @@ public class InfoDisplays {
 		sender.sendMessage("Must specify a user to use from the console.");
 	}
 
-	static void NeedPermission(CommandSender sender) {
-		sender.sendMessage("RemoteMobSpawn - You do not have permission for that.");
+	static void InvalidOrNeedPermission(CommandSender sender) {
+		sender.sendMessage("RemoteMobSpawn - Command invalid or you lack permission.");
 	}
 
 	static void InvalidPlayer(CommandSender sender) {

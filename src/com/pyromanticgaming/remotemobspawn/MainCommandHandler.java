@@ -34,7 +34,7 @@ public class MainCommandHandler implements CommandExecutor {
 					|| sender.isOp();
 
 			if (args.length > 0) {
-				if (canRemoteSpawn) {
+				if (canRemoteSpawn && (args.length == 4) && !args[0].equalsIgnoreCase("all")) {
 					if (Bukkit.getPlayer(args[0]) instanceof Player) {
 						// PLAYER0 MOB1 AMOUNT2 DISTANCE3
 						Player player1 = Bukkit.getPlayerExact(args[0]);
@@ -46,7 +46,7 @@ public class MainCommandHandler implements CommandExecutor {
 								return true;
 							} else if (args[0].equals(sender.getName())
 									&& !canSpawn) {
-								InfoDisplays.NeedPermission(sender);
+								InfoDisplays.InvalidOrNeedPermission(sender);
 								return true;
 							} else if (!args[0].equals(sender.getName())) {
 								RemoteSpawnCommand.remotespawncommand(
@@ -58,24 +58,21 @@ public class MainCommandHandler implements CommandExecutor {
 						InfoDisplays.InvalidPlayer(sender);
 						return true;
 					}
-				}
-				if (canAll) {
-					if (args[0].toUpperCase().contentEquals("ALL")) {
+				} else
+					if (canAll && (args.length == 4) && args[0].equalsIgnoreCase("all")) {
 						AllSpawnCommand.allspawncommand(sender, args);
 						return true;
-					}
-				}
-				if (canModify) {
-					if (args[0].toUpperCase().contains("GLOW")) {
-						MainConfig.SetGlow(args, sender);
-						return true;
-					}
-					if (args[0].toUpperCase().contains("SAFESPAWN")) {
-						MainConfig.SafeSpawn(args, sender);
-						return true;
-					}
-				}
-				if (canSpawn) {
+					} else
+						if (canModify && (args.length == 2) && args[0].equalsIgnoreCase("glow")) {
+							MainConfig.SetGlow(args, sender);
+							return true;
+						} else
+							if (canModify && (args.length == 2) && args[0].equalsIgnoreCase("safespawn")) {
+								MainConfig.SafeSpawn(args, sender);
+								return true;
+							}
+			} else
+				if (canSpawn && (args.length == 3)) {
 					for (EntityType c : EntityType.values()) {
 						// MOB0 AMOUNT1 DISTANCE2
 						if (args[0].equalsIgnoreCase(c.name())) {
@@ -89,13 +86,12 @@ public class MainCommandHandler implements CommandExecutor {
 							}
 						}
 					}
-				} else {
-					InfoDisplays.NeedPermission(sender);
+				} else{
+					InfoDisplays.InvalidOrNeedPermission(sender);
 					return true;
 				}
-			}
-
 		}
+
 		return false;
 	}
 
