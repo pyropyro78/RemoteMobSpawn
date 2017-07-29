@@ -20,8 +20,7 @@ public class RemoteSpawnCommand {
 		plugin = instance;
 	}
 
-	static void remotespawncommand(CommandSender sender, String[] args,
-			Player player1) {
+	static void remotespawncommand(CommandSender sender, String[] args, Player player1) {
 		int amount = 1;
 		int distance = 0;
 		boolean check = false;
@@ -37,7 +36,6 @@ public class RemoteSpawnCommand {
 
 		} else if (args.length == 3) {
 			amount = Integer.parseInt(args[2]);
-
 			check = true;
 
 		} else if (args.length == 4) {
@@ -56,16 +54,18 @@ public class RemoteSpawnCommand {
 			int disx = 0;
 			int disz = 0;
 			double direction = (loc.getYaw());
+			
+			
 
 			SimplifiedSpawning.FindRelativeDirection(distance, disx, disz, direction);
-
-			Location newloc = null;
+			sender.sendMessage(disx + " " + distance);
+			Location newloc = new Location(loc.getWorld(), loc.getX() + disx,loc.getY(), loc.getZ() + disz);
 
 			SimplifiedSpawning.SafeSpawning(loc, newloc, disx, disz, sender, amount);
 			
 			String uppername = args[1].toUpperCase();
 			
-			SimplifiedSpawning.Spawn(uppername, player1, newloc, disz, sender);
+			SimplifiedSpawning.Spawn(uppername, player1, newloc, amount, sender);
 		}
 
 	}

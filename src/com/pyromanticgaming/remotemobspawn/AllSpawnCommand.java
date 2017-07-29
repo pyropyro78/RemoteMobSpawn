@@ -1,5 +1,7 @@
 package com.pyromanticgaming.remotemobspawn;
 
+import org.bukkit.Bukkit;
+
 /*
  *Copyright (c) <2013-2017>, <pyropyro78 / Bradley Van Dyne>, <pyropyro78@gmail.com>
  *All rights reserved.
@@ -50,8 +52,7 @@ public class AllSpawnCommand {
 		}
 
 		if (check == true) {
-			for (Player player1 : plugin.getServer()
-					.getOnlinePlayers()) {
+			for (Player player1 : Bukkit.getServer().getOnlinePlayers()) {
 
 				Location loc = player1.getLocation();
 				int disx = 0;
@@ -59,8 +60,9 @@ public class AllSpawnCommand {
 				double direction = (loc.getYaw());
 
 				SimplifiedSpawning.FindRelativeDirection(distance, disx, disz, direction);
-				Location newloc = null;
-
+				
+				Location newloc = new Location(loc.getWorld(), loc.getX() + disx, loc.getY(), loc.getZ() + disz);
+				
 				SimplifiedSpawning.SafeSpawning(loc, newloc, disx, disz, sender, amount);
 				
 				String uppername = args[1].toUpperCase();
