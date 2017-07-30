@@ -33,7 +33,7 @@ public class SimplifiedSpawning {
 		if (direction >= 315 || direction <= 44.9) {
 			disz = disz + distance;
 		}
-		SafeSpawning(loc, disz, disz, sender, amount, player1, uppername);
+		SafeSpawning(loc, disx, disz, sender, amount, player1, uppername);
 	}
 
 	public static void SafeSpawning(Location loc, int disx, int disz, CommandSender sender, int amount, Player player1, String uppername) {
