@@ -7,8 +7,8 @@ package com.pyromanticgaming.remotemobspawn;
  *THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 public class SpawnCommand {
@@ -37,20 +37,13 @@ public class SpawnCommand {
 
 		// MOB0 AMOUNT1 DISTANCE2
 		Player player = (Player) sender;
-		Location loc = player.getLocation();
-		int disx = 0;
-		int disz = 0;
-		double direction = (loc.getYaw());
-
-		SimplifiedSpawning.FindRelativeDirection(distance, disx, disz, direction);
-
-		Location newloc = null;
-
-		SimplifiedSpawning.SafeSpawning(loc, newloc, disx, disz, sender, amount);
-		
 		String uppername = args[0].toUpperCase();
-		
-		SimplifiedSpawning.Spawn(uppername, player, newloc, disz, sender);
+		if(EntityType.valueOf(uppername).isSpawnable()) {
+			SimplifiedSpawning.FindRelativeDirection(distance, uppername, amount, player, sender);
+		} else
+			if(!EntityType.valueOf(uppername).isSpawnable()) {
+				InfoDisplays.InvalidMob(sender);
+			}
 	}
 
 }

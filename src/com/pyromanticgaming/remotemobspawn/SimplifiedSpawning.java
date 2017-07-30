@@ -7,8 +7,13 @@ import org.bukkit.entity.Player;
 
 public class SimplifiedSpawning {
 
-	
-	public static void FindRelativeDirection(int distance, int disx, int disz, double direction) {
+
+	public static void FindRelativeDirection(int distance, String uppername, int amount, Player player1, CommandSender sender) {
+		int disx = 0;
+		int disz = 0;
+		Location loc = player1.getLocation();
+		double direction = (loc.getYaw());
+		
 		// W
 		if (direction >= 45 && direction <= 134.9) {
 			disx = disx - distance;
@@ -28,32 +33,30 @@ public class SimplifiedSpawning {
 		if (direction >= 315 || direction <= 44.9) {
 			disz = disz + distance;
 		}
+		SafeSpawning(loc, disz, disz, sender, amount, player1, uppername);
 	}
-	
-	public static void SafeSpawning(Location loc, Location newloc, int disx, int disz, CommandSender sender, int amount) {
+
+	public static void SafeSpawning(Location loc, int disx, int disz, CommandSender sender, int amount, Player player1, String uppername) {
+		Location newloc = new Location(loc.getWorld(), loc.getX() + disx,loc.getY(), loc.getZ() + disz);
 		Location newloc1;
 		if (MainConfig.SafeSpawn) {
 			newloc1 = new Location(loc.getWorld(), loc.getX() + disx, loc.getY() + 1, loc.getZ() + disz);
 			if (newloc.getBlock().getType().isSolid() || newloc1.getBlock().getType().isSolid()) {
 				InfoDisplays.SafeSpawnFail(sender);
 				amount = 0;
+			} else {
+				Spawn(uppername, player1, newloc, amount, sender);
 			}
 		} else {
-			newloc = new Location(loc.getWorld(), loc.getX() + disx,
-					loc.getY(), loc.getZ() + disz);
+			Spawn(uppername, player1, newloc, amount, sender);
 		}
 	}
-	
+
 	public static void Spawn(String uppername, Player player1, Location newloc, int amount, CommandSender sender) {
-		if(EntityType.valueOf(uppername).isSpawnable()) {
-			while (amount > 0) {
-				player1.getWorld().spawnEntity(newloc, EntityType.valueOf(uppername)).setGlowing(MainConfig.Glow);
-				amount--;
-			}
-			return;
+		while (amount > 0) {
+			player1.getWorld().spawnEntity(newloc, EntityType.valueOf(uppername)).setGlowing(MainConfig.Glow);
+			amount--;
 		}
-		else if(!EntityType.valueOf(uppername).isSpawnable()) {
-			InfoDisplays.InvalidMob(sender);
-		}
+		return;
 	}
 }
