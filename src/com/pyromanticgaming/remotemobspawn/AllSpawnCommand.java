@@ -25,7 +25,7 @@ public class AllSpawnCommand {
 	static void allspawncommand(CommandSender sender, String[] args) {
 		int amount = 1;
 		int distance = 0;
-		boolean check = false;
+		boolean check = false, SetGlow = false;
 		// ALL0 MOB1 AMOUNT2 DISTANCE3
 		if (args.length == 1) {
 
@@ -33,32 +33,59 @@ public class AllSpawnCommand {
 			InfoDisplays.ComandSyntax(sender);
 
 			return;
-		} else if (args.length == 2) {
+		} else
+			if (args.length == 2) {
+				if(MainConfig.Glow) {
+					SetGlow = true;
+				}
+				check = true;
 
-			check = true;
+			} else
+				if (args.length == 3) {
+					amount = Integer.parseInt(args[2]);
+					if(MainConfig.Glow) {
+						SetGlow = true;
+					}
+					check = true;
 
-		} else if (args.length == 3) {
-			amount = Integer.parseInt(args[2]);
+				} else
+					if (args.length == 4) {
+						amount = Integer.parseInt(args[2]);
+						distance = Integer.parseInt(args[3]);
+						if(MainConfig.Glow) {
+							SetGlow = true;
+						}
+						check = true;
 
-			check = true;
+					} else
+						if (RemoteMobSpawn.NotLegacy && args.length == 5 && (sender.hasPermission("RemoteMobSpawn.spawn.glow") || sender.isOp())) {
+							amount = Integer.parseInt(args[2]);
+							distance = Integer.parseInt(args[3]);
 
-		} else if (args.length == 4) {
-			amount = Integer.parseInt(args[2]);
-			distance = Integer.parseInt(args[3]);
+							SetGlow = Boolean.parseBoolean(args[3]);
 
-			check = true;
+							check = true;
 
-		} else {
-			InfoDisplays.InvalidArgs(sender);
-			InfoDisplays.ComandSyntax(sender);
-		}
+						} else
+							if (RemoteMobSpawn.NotLegacy && args.length == 5 && !(sender.hasPermission("RemoteMobSpawn.spawn.glow") || sender.isOp())) {
+								InfoDisplays.InvalidGlowPermission(sender);
+
+
+							} else
+								if (RemoteMobSpawn.NotLegacy && args.length == 5) {
+									InfoDisplays.LegacyWarning(sender);
+
+								} else {
+									InfoDisplays.InvalidArgs(sender);
+									InfoDisplays.ComandSyntax(sender);
+								}
 
 		if (check == true) {
 			for (Player player1 : Bukkit.getServer().getOnlinePlayers()) {
 				String uppername = args[1].toUpperCase();
 
 				if(EntityType.valueOf(uppername).isSpawnable()) {
-					SimplifiedSpawning.FindRelativeDirection(distance, uppername, amount, player1, sender);
+					SimplifiedSpawning.FindRelativeDirection(distance, uppername, amount, player1, sender, SetGlow);
 				} else
 					if(!EntityType.valueOf(uppername).isSpawnable()) {
 						InfoDisplays.InvalidMob(sender);

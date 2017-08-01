@@ -38,26 +38,28 @@ public class MainConfig {
 
 	static void SetGlow(String args[], CommandSender sender) {
 		if(RemoteMobSpawn.NotLegacy) {
-			if (args.length > 1) {
-				if (args[1].toUpperCase().contentEquals("ON")) {
+			if (args.length == 2) {
+				Glow = Boolean.parseBoolean(args[1]);
+
+				if (Glow) {
 					plugin.getConfig().set("Glow", true);
 					plugin.saveConfig();
-					MainConfig.Glow = true;
-					plugin.getLogger().info("Glow Spawning Enabled in Config by " + sender.getName() + ".");
-					InfoDisplays.GlowOn(sender);
+					plugin.getLogger().info("Glow Default Spawning Enabled in Config by " + sender.getName() + ".");
+					InfoDisplays.GlowTrue(sender);
 					return;
-				} else if (args[1].toUpperCase().contentEquals("OFF")) {
-					plugin.getConfig().set("Glow", false);
-					plugin.saveConfig();
-					MainConfig.Glow = false;
-					plugin.getLogger().info("Glow Spawning Disabled in Config by " + sender.getName() + ".");
-					InfoDisplays.GlowOff(sender);
-					return;
-				} else {
+				} else
+					if (!Glow) {
+						plugin.getConfig().set("Glow", false);
+						plugin.saveConfig();
+						plugin.getLogger().info("Glow Default Spawning Disabled in Config by " + sender.getName() + ".");
+						InfoDisplays.GlowFalse(sender);
+						return;
+					}
+			} else 
+				if (!(args.length == 2)){
 					InfoDisplays.InvalidArgs(sender);
 					InfoDisplays.ComandSyntax(sender);
 				}
-			}
 		} else {
 			InfoDisplays.LegacyWarning(sender);
 		}

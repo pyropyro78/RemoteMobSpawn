@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 public class SimplifiedSpawning {
 
 
-	public static void FindRelativeDirection(int distance, String uppername, int amount, Player player1, CommandSender sender) {
+	public static void FindRelativeDirection(int distance, String uppername, int amount, Player player1, CommandSender sender, boolean SetGlow) {
 		int disx = 0;
 		int disz = 0;
 		Location loc = player1.getLocation();
@@ -33,10 +33,10 @@ public class SimplifiedSpawning {
 		if (direction >= 315 || direction <= 44.9) {
 			disz = disz + distance;
 		}
-		SafeSpawning(loc, disx, disz, sender, amount, player1, uppername);
+		SafeSpawning(loc, disx, disz, sender, amount, player1, uppername, SetGlow);
 	}
 
-	private static void SafeSpawning(Location loc, int disx, int disz, CommandSender sender, int amount, Player player1, String uppername) {
+	private static void SafeSpawning(Location loc, int disx, int disz, CommandSender sender, int amount, Player player1, String uppername, boolean SetGlow) {
 		Location newloc = new Location(loc.getWorld(), loc.getX() + disx,loc.getY(), loc.getZ() + disz);
 		Location newloc1;
 		if (MainConfig.SafeSpawn) {
@@ -45,17 +45,17 @@ public class SimplifiedSpawning {
 				InfoDisplays.SafeSpawnFail(sender);
 				amount = 0;
 			} else {
-				Spawn(uppername, player1, newloc, amount, sender);
+				Spawn(uppername, player1, newloc, amount, sender, SetGlow);
 			}
 		} else {
-			Spawn(uppername, player1, newloc, amount, sender);
+			Spawn(uppername, player1, newloc, amount, sender, SetGlow);
 		}
 	}
 
-	public static void Spawn(String uppername, Player player1, Location newloc, int amount, CommandSender sender) {
+	public static void Spawn(String uppername, Player player1, Location newloc, int amount, CommandSender sender, boolean SetGlow) {
 		if(RemoteMobSpawn.NotLegacy) {
 			while (amount > 0) {
-				player1.getWorld().spawnEntity(newloc, EntityType.valueOf(uppername)).setGlowing(MainConfig.Glow);
+				player1.getWorld().spawnEntity(newloc, EntityType.valueOf(uppername)).setGlowing(SetGlow);
 				amount--;
 			}
 		} else {

@@ -24,28 +24,53 @@ public class SpawnCommand {
 
 		int amount = 1;
 		int distance = 0;
+		boolean check = false, SetGlow = false;
 
 		if (args.length == 2) {
 			amount = Integer.parseInt(args[1]);
+			if(MainConfig.Glow) {
+				SetGlow = true;
+			}
+			check = true;
 		} else
 			if (args.length == 3) {
 				amount = Integer.parseInt(args[1]);
 				distance = Integer.parseInt(args[2]);
-			} else
-				if (args.length >= 4) {
-					InfoDisplays.InvalidArgs(sender);
-					InfoDisplays.ComandSyntax(sender);
+				if(MainConfig.Glow) {
+					SetGlow = true;
 				}
+				check = true;
+			} else
+				if (RemoteMobSpawn.NotLegacy && args.length == 4 && (sender.hasPermission("RemoteMobSpawn.spawn.glow") || sender.isOp())) {
+					amount = Integer.parseInt(args[1]);
+					distance = Integer.parseInt(args[2]);
+					SetGlow = Boolean.parseBoolean(args[3]);
+					check = true;
 
-		// MOB0 AMOUNT1 DISTANCE2
-		Player player = (Player) sender;
-		String uppername = args[0].toUpperCase();
-		if(EntityType.valueOf(uppername).isSpawnable()) {
-			SimplifiedSpawning.FindRelativeDirection(distance, uppername, amount, player, sender);
-		} else
-			if(!EntityType.valueOf(uppername).isSpawnable()) {
-				InfoDisplays.InvalidMob(sender);
-			}
+				} else
+					if (RemoteMobSpawn.NotLegacy && args.length == 4 && !(sender.hasPermission("RemoteMobSpawn.spawn.glow") || sender.isOp())) {
+						InfoDisplays.InvalidGlowPermission(sender);
+
+					} else
+						if (!RemoteMobSpawn.NotLegacy && args.length == 4) {
+							InfoDisplays.LegacyWarning(sender);
+
+						} else {
+							InfoDisplays.InvalidArgs(sender);
+							InfoDisplays.ComandSyntax(sender);
+						}
+
+		if (check == true) {
+			// MOB0 AMOUNT1 DISTANCE2
+			Player player = (Player) sender;
+			String uppername = args[0].toUpperCase();
+			if(EntityType.valueOf(uppername).isSpawnable()) {
+				SimplifiedSpawning.FindRelativeDirection(distance, uppername, amount, player, sender, SetGlow);
+			} else
+				if(!EntityType.valueOf(uppername).isSpawnable()) {
+					InfoDisplays.InvalidMob(sender);
+				}
+		}
 	}
 
 }

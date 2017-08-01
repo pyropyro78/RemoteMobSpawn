@@ -69,6 +69,7 @@ public class MainCommandHandler implements CommandExecutor {
 							MainConfig.SafeSpawn(args, sender);
 							return true;
 						} else
+							//TODO EntityType check breaks plugin if not a mob
 							if (canSpawn && EntityType.valueOf(args[0].toUpperCase()).isSpawnable()) {
 								// MOB0 AMOUNT1 DISTANCE2
 								if (sender instanceof Player) {
