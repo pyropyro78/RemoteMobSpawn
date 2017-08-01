@@ -16,12 +16,12 @@ public class SimplifiedSpawning {
 		
 		// W
 		if (direction >= 225 && direction <= 314.9) {
-			disx = disx - distance;
+			disx = disx + distance;
 		}
 
 		// E
 		if (direction >= 45 && direction <= 134.9) {
-			disx = disx + distance;
+			disx = disx - distance;
 		}
 
 		// N
