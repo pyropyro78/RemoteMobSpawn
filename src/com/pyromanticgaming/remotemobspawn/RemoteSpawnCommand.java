@@ -27,7 +27,8 @@ public class RemoteSpawnCommand {
 		// PLAYER0 MOB1 AMOUNT2 DISTANCE3
 		if (args.length == 1) {
 
-			InfoDisplays.InvalidNumberOfArgs(sender);
+			InfoDisplays.InvalidArgs(sender);
+			InfoDisplays.ComandSyntax(sender);
 
 			return;
 		} else if (args.length == 2) {
@@ -45,8 +46,8 @@ public class RemoteSpawnCommand {
 			check = true;
 
 		} else {
-			InfoDisplays.InvalidNumberOfArgs(sender);
-			InfoDisplays.InfoSection(sender);
+			InfoDisplays.InvalidArgs(sender);
+			InfoDisplays.ComandSyntax(sender);
 		}
 
 		if (check == true) {

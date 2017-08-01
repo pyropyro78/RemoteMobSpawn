@@ -12,5 +12,6 @@ commands:
         /rms [mob] [amount] [distance] - Spawns on self
         /rms glow [on/off] - Toggles glow spawning on or off
         /rms safespawn [on/off] - Toggles safe spawning on/off
+        /rms help - Displays commands
 aliases:
     remotemobspawn: rms

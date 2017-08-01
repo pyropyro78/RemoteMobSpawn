@@ -27,13 +27,15 @@ public class SpawnCommand {
 
 		if (args.length == 2) {
 			amount = Integer.parseInt(args[1]);
-		} else if (args.length == 3) {
-			amount = Integer.parseInt(args[1]);
-			distance = Integer.parseInt(args[2]);
-		} else {
-			InfoDisplays.InvalidNumberOfArgs(sender);
-			InfoDisplays.InfoSection(sender);
-		}
+		} else
+			if (args.length == 3) {
+				amount = Integer.parseInt(args[1]);
+				distance = Integer.parseInt(args[2]);
+			} else
+				if (args.length >= 4) {
+					InfoDisplays.InvalidArgs(sender);
+					InfoDisplays.ComandSyntax(sender);
+				}
 
 		// MOB0 AMOUNT1 DISTANCE2
 		Player player = (Player) sender;

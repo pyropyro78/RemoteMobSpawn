@@ -16,7 +16,7 @@ public class RemoteMobSpawn extends JavaPlugin implements Listener {
 
 	@Override
 	public void onEnable() {
-
+		getLogger().info("RemoteMobSpawn loading started.");
 		getServer().getPluginManager().registerEvents((Listener) this, this);
 
 		this.saveDefaultConfig();
@@ -35,9 +35,9 @@ public class RemoteMobSpawn extends JavaPlugin implements Listener {
 			getLogger().info("Glow Spawning Disabled in Config.");
 		}
 
-		getLogger().info("RemoteMobSpawn has been enabled.");
-
 		getCommand("rms").setExecutor(new MainCommandHandler(this));
+		
+		getLogger().info("RemoteMobSpawn has been loaded.");
 	}
 
 	@Override

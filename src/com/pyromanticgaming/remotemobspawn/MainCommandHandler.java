@@ -34,32 +34,30 @@ public class MainCommandHandler implements CommandExecutor {
 					|| sender.isOp();
 
 
-			if (canRemoteSpawn && (args.length == 4) && !args[0].equalsIgnoreCase("all")) {
-				if (Bukkit.getPlayer(args[0]) instanceof Player) {
-					// PLAYER0 MOB1 AMOUNT2 DISTANCE3
-					Player player1 = Bukkit.getPlayerExact(args[0]);
-					if (args[0].equals(player1.getName())) {
-						if (args[0].equals(sender.getName())
-								&& canSpawn) {
-							RemoteSpawnCommand.remotespawncommand(
-									sender, args, player1);
-							return true;
-						} else if (args[0].equals(sender.getName())
-								&& !canSpawn) {
-							InfoDisplays.InvalidOrNeedPermission(sender);
-							return true;
-						} else if (!args[0].equals(sender.getName())) {
-							RemoteSpawnCommand.remotespawncommand(
-									sender, args, player1);
-							return true;
-						}
+			if (canRemoteSpawn && !args[0].equalsIgnoreCase("all") && (Bukkit.getPlayer(args[0]) instanceof Player)) {
+				// PLAYER0 MOB1 AMOUNT2 DISTANCE3
+				Player player1 = Bukkit.getPlayerExact(args[0]);
+				if (args[0].equals(player1.getName())) {
+					if (args[0].equals(sender.getName())
+							&& canSpawn) {
+						RemoteSpawnCommand.remotespawncommand(
+								sender, args, player1);
+						return true;
+					} else if (args[0].equals(sender.getName())
+							&& !canSpawn) {
+						InfoDisplays.InvalidOrNeedPermission(sender);
+						return true;
+					} else if (!args[0].equals(sender.getName())) {
+						RemoteSpawnCommand.remotespawncommand(
+								sender, args, player1);
+						return true;
 					}
 				}else {
 					InfoDisplays.InvalidPlayer(sender);
 					return true;
 				}
 			} else
-				if (canAll && (args.length == 4) && args[0].equalsIgnoreCase("all")) {
+				if (canAll && args[0].equalsIgnoreCase("all")) {
 					AllSpawnCommand.allspawncommand(sender, args);
 					return true;
 				} else
@@ -71,24 +69,25 @@ public class MainCommandHandler implements CommandExecutor {
 							MainConfig.SafeSpawn(args, sender);
 							return true;
 						} else
-							if (canSpawn && (args.length == 3)) {
-								for (EntityType c : EntityType.values()) {
-									// MOB0 AMOUNT1 DISTANCE2
-									if (args[0].equalsIgnoreCase(c.name())) {
-										if (sender instanceof Player) {
-											SpawnCommand.spawncommand(sender, args);
-											return true;
-										} else {
-											InfoDisplays.MustBePlayer(sender);
-											InfoDisplays.InfoSection(sender);
-											return true;
-										}
-									}
+							if (canSpawn && EntityType.valueOf(args[0].toUpperCase()).isSpawnable()) {
+								// MOB0 AMOUNT1 DISTANCE2
+								if (sender instanceof Player) {
+									SpawnCommand.spawncommand(sender, args);
+									return true;
+								} else {
+									InfoDisplays.MustBePlayer(sender);
+									InfoDisplays.ComandSyntax(sender);
+									return true;
 								}
-							} else{
-								InfoDisplays.InvalidOrNeedPermission(sender);
-								return true;
-							}
+							} else
+								if ((args.length == 1) && args[0].equalsIgnoreCase("help")) {
+									InfoDisplays.ComandSyntax(sender);
+									return true;
+								} else{
+									InfoDisplays.InvalidOrNeedPermission(sender);
+									InfoDisplays.ComandSyntax(sender);
+									return true;
+								}
 		}
 
 		return false;

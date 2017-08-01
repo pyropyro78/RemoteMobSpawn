@@ -33,6 +33,7 @@ public class SimplifiedSpawning {
 		if (direction >= 315 || direction <= 44.9) {
 			disz = disz + distance;
 		}
+		sender.sendMessage(" " + distance + " " + disx + " " + disz);
 		SafeSpawning(loc, disx, disz, sender, amount, player1, uppername);
 	}
 

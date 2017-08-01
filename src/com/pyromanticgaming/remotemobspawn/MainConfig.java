@@ -43,17 +43,18 @@ public class MainConfig {
 				plugin.saveConfig();
 				MainConfig.Glow = true;
 				plugin.getLogger().info("Glow Spawning Enabled in Config by " + sender.getName() + ".");
-				sender.sendMessage("Glow Spawning set to On");
+				InfoDisplays.GlowOn(sender);
 				return;
 			} else if (args[1].toUpperCase().contentEquals("OFF")) {
 				plugin.getConfig().set("Glow", false);
 				plugin.saveConfig();
 				MainConfig.Glow = false;
 				plugin.getLogger().info("Glow Spawning Disabled in Config by " + sender.getName() + ".");
-				sender.sendMessage("Glow Spawning set to Off");
+				InfoDisplays.GlowOff(sender);
 				return;
 			} else {
-				sender.sendMessage("Invalid Args - /rms glow [On/Off]");
+				InfoDisplays.InvalidArgs(sender);
+				InfoDisplays.ComandSyntax(sender);
 			}
 		}
 	}
@@ -65,17 +66,18 @@ public class MainConfig {
 				plugin.saveConfig();
 				MainConfig.SafeSpawn = true;
 				plugin.getLogger().info("SafeSpawn Enabled in Config by " + sender.getName() + ".");
-				sender.sendMessage("SafeSpawn set to On");
+				InfoDisplays.SafeSpawnOn(sender);
 				return;
 			} else if (args[1].toUpperCase().contentEquals("OFF")) {
 				plugin.getConfig().set("SafeSpawn", false);
 				plugin.saveConfig();
 				MainConfig.SafeSpawn = false;
 				plugin.getLogger().info("SafeSpawn Disabled in Config by " + sender.getName() + ".");
-				sender.sendMessage("SafeSpawn set to Off");
+				InfoDisplays.SafeSpawnOff(sender);
 				return;
 			} else {
-				sender.sendMessage("Invalid Args - /rms safespawn [on or off]");
+				InfoDisplays.InvalidArgs(sender);
+				InfoDisplays.ComandSyntax(sender);
 			}
 		}
 	}
