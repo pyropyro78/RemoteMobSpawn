@@ -1,5 +1,7 @@
 package com.pyromanticgaming.remotemobspawn;
 
+import org.bukkit.Bukkit;
+
 /*
  *Copyright (c) <2013-2017>, <pyropyro78 / Bradley Van Dyne>, <pyropyro78@gmail.com>
  *All rights reserved.
@@ -13,11 +15,16 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class RemoteMobSpawn extends JavaPlugin implements Listener {
 
+	public static boolean NotLegacy = false;
 
 	@Override
 	public void onEnable() {
 		getLogger().info("RemoteMobSpawn loading started.");
 		getServer().getPluginManager().registerEvents((Listener) this, this);
+
+		if(Bukkit.getVersion().contains("1.9") || Bukkit.getVersion().contains("1.1")) {
+			NotLegacy = true;
+		}
 
 		this.saveDefaultConfig();
 		new MainConfig(this);
@@ -28,15 +35,16 @@ public class RemoteMobSpawn extends JavaPlugin implements Listener {
 		} else {
 			getLogger().info("SafeSpawning Disabled in Config.");
 		}
-
-		if (MainConfig.Glow) {
-			getLogger().info("Glow Spawning Enabled in Config.");
-		} else {
-			getLogger().info("Glow Spawning Disabled in Config.");
+		if(NotLegacy) {
+			if (MainConfig.Glow) {
+				getLogger().info("Glow Spawning Enabled in Config.");
+			} else {
+				getLogger().info("Glow Spawning Disabled in Config.");
+			}
 		}
 
 		getCommand("rms").setExecutor(new MainCommandHandler(this));
-		
+
 		getLogger().info("RemoteMobSpawn has been loaded.");
 	}
 

@@ -8,7 +8,9 @@ public class InfoDisplays {
 		sender.sendMessage("/rms all [mob] [amount] [distance] - Spawns on all players");
 		sender.sendMessage("/rms [player] [mob] [amount] [distance] - Spawns on other");
 		sender.sendMessage("/rms [mob] [amount] [distance] - Spawns on self");
-		sender.sendMessage("/rms glow [on/off] - Toggles glow spawning on or off");
+		if(RemoteMobSpawn.NotLegacy) {
+			sender.sendMessage("/rms glow [on/off] - Toggles glow spawning on or off");
+		}
 		sender.sendMessage("/rms safespawn [on/off] - Toggles safe spawning on/off");
 		sender.sendMessage("/rms help - Displays commands");
 		sender.sendMessage("If a mob has two words in the name use _ like so: ender_dragon");
@@ -38,20 +40,24 @@ public class InfoDisplays {
 	static void SafeSpawnFail(CommandSender sender) {
 		sender.sendMessage("Mob Spawning has failed - Block in location of spawning");
 	}
-	
+
 	static void GlowOn(CommandSender sender) {
 		sender.sendMessage("Glow Spawning set to On");
 	}
-	
+
 	static void GlowOff(CommandSender sender) {
 		sender.sendMessage("Glow Spawning set to Off");
 	}
-	
+
 	static void SafeSpawnOn(CommandSender sender) {
 		sender.sendMessage("SafeSpawn set to On");
 	}
-	
+
 	static void SafeSpawnOff(CommandSender sender) {
 		sender.sendMessage("SafeSpawn set to Off");
+	}
+
+	static void LegacyWarning(CommandSender sender) {
+		sender.sendMessage("This feature is only offered in Minecraft 1.9+");
 	}
 }

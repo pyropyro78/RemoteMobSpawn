@@ -35,27 +35,31 @@ public class MainConfig {
 		Glow = plugin.getConfig().getBoolean("Glow");
 
 	}
-	
+
 	static void SetGlow(String args[], CommandSender sender) {
-		if (args.length > 1) {
-			if (args[1].toUpperCase().contentEquals("ON")) {
-				plugin.getConfig().set("Glow", true);
-				plugin.saveConfig();
-				MainConfig.Glow = true;
-				plugin.getLogger().info("Glow Spawning Enabled in Config by " + sender.getName() + ".");
-				InfoDisplays.GlowOn(sender);
-				return;
-			} else if (args[1].toUpperCase().contentEquals("OFF")) {
-				plugin.getConfig().set("Glow", false);
-				plugin.saveConfig();
-				MainConfig.Glow = false;
-				plugin.getLogger().info("Glow Spawning Disabled in Config by " + sender.getName() + ".");
-				InfoDisplays.GlowOff(sender);
-				return;
-			} else {
-				InfoDisplays.InvalidArgs(sender);
-				InfoDisplays.ComandSyntax(sender);
+		if(RemoteMobSpawn.NotLegacy) {
+			if (args.length > 1) {
+				if (args[1].toUpperCase().contentEquals("ON")) {
+					plugin.getConfig().set("Glow", true);
+					plugin.saveConfig();
+					MainConfig.Glow = true;
+					plugin.getLogger().info("Glow Spawning Enabled in Config by " + sender.getName() + ".");
+					InfoDisplays.GlowOn(sender);
+					return;
+				} else if (args[1].toUpperCase().contentEquals("OFF")) {
+					plugin.getConfig().set("Glow", false);
+					plugin.saveConfig();
+					MainConfig.Glow = false;
+					plugin.getLogger().info("Glow Spawning Disabled in Config by " + sender.getName() + ".");
+					InfoDisplays.GlowOff(sender);
+					return;
+				} else {
+					InfoDisplays.InvalidArgs(sender);
+					InfoDisplays.ComandSyntax(sender);
+				}
 			}
+		} else {
+			InfoDisplays.LegacyWarning(sender);
 		}
 	}
 

@@ -13,7 +13,7 @@ public class SimplifiedSpawning {
 		int disz = 0;
 		Location loc = player1.getLocation();
 		double direction = (loc.getYaw());
-		
+
 		// W
 		if (direction >= 225 && direction <= 314.9) {
 			disx = disx + distance;
@@ -33,7 +33,6 @@ public class SimplifiedSpawning {
 		if (direction >= 315 || direction <= 44.9) {
 			disz = disz + distance;
 		}
-		sender.sendMessage(" " + distance + " " + disx + " " + disz);
 		SafeSpawning(loc, disx, disz, sender, amount, player1, uppername);
 	}
 
@@ -54,9 +53,16 @@ public class SimplifiedSpawning {
 	}
 
 	public static void Spawn(String uppername, Player player1, Location newloc, int amount, CommandSender sender) {
-		while (amount > 0) {
-			player1.getWorld().spawnEntity(newloc, EntityType.valueOf(uppername)).setGlowing(MainConfig.Glow);
-			amount--;
+		if(RemoteMobSpawn.NotLegacy) {
+			while (amount > 0) {
+				player1.getWorld().spawnEntity(newloc, EntityType.valueOf(uppername)).setGlowing(MainConfig.Glow);
+				amount--;
+			}
+		} else {
+			while (amount > 0) {
+				player1.getWorld().spawnEntity(newloc, EntityType.valueOf(uppername));
+				amount--;
+			}
 		}
 		return;
 	}
