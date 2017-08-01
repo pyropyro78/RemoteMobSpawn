@@ -15,17 +15,17 @@ public class SimplifiedSpawning {
 		double direction = (loc.getYaw());
 		
 		// W
-		if (direction >= 45 && direction <= 134.9) {
+		if (direction >= 225 && direction <= 314.9) {
 			disx = disx - distance;
 		}
 
 		// E
-		if (direction >= 224.9 && direction <= 314.9) {
+		if (direction >= 45 && direction <= 134.9) {
 			disx = disx + distance;
 		}
 
 		// N
-		if (direction <= 135 || direction >= 225) {
+		if (direction >= 135 && direction <= 224.9) {
 			disz = disz - distance;
 		}
 
@@ -36,7 +36,7 @@ public class SimplifiedSpawning {
 		SafeSpawning(loc, disx, disz, sender, amount, player1, uppername);
 	}
 
-	public static void SafeSpawning(Location loc, int disx, int disz, CommandSender sender, int amount, Player player1, String uppername) {
+	private static void SafeSpawning(Location loc, int disx, int disz, CommandSender sender, int amount, Player player1, String uppername) {
 		Location newloc = new Location(loc.getWorld(), loc.getX() + disx,loc.getY(), loc.getZ() + disz);
 		Location newloc1;
 		if (MainConfig.SafeSpawn) {
