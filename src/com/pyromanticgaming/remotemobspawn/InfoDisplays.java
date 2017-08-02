@@ -81,4 +81,16 @@ public class InfoDisplays {
 	static void LegacyWarning(CommandSender sender) {
 		sender.sendMessage("Glow feature is only offered in Minecraft 1.9+");
 	}
+	
+	static void InvalidAmount(CommandSender sender) {
+		sender.sendMessage("Invalid amount used, spawning only one");
+	}
+	
+	static void InvalidDistance(CommandSender sender) {
+		sender.sendMessage("Invalid distance used, spawning on player");
+	}
+	
+	static void InvalidGlow(CommandSender sender) {
+		sender.sendMessage("Invalid glow setting, using config default");
+	}
 }

@@ -33,7 +33,15 @@ public class MainCommandHandler implements CommandExecutor {
 			boolean canModify = sender.hasPermission("RemoteMobSpawn.modify")
 					|| sender.isOp();
 
+			boolean checkformob = false;
+			try{
+				if(EntityType.valueOf(args[0].toUpperCase()).isSpawnable()) {
+					checkformob = true;
+				}
+			} catch (Exception e) {
 
+			}
+			
 			if (canRemoteSpawn && !args[0].equalsIgnoreCase("all") && (Bukkit.getPlayer(args[0]) instanceof Player)) {
 				// PLAYER0 MOB1 AMOUNT2 DISTANCE3
 				Player player1 = Bukkit.getPlayerExact(args[0]);
@@ -69,17 +77,16 @@ public class MainCommandHandler implements CommandExecutor {
 							MainConfig.SafeSpawn(args, sender);
 							return true;
 						} else
-							//TODO EntityType check breaks plugin if not a mob
-							if (canSpawn && EntityType.valueOf(args[0].toUpperCase()).isSpawnable()) {
+							if (canSpawn && checkformob) {
 								// MOB0 AMOUNT1 DISTANCE2
-								if (sender instanceof Player) {
-									SpawnCommand.spawncommand(sender, args);
-									return true;
-								} else {
-									InfoDisplays.MustBePlayer(sender);
-									InfoDisplays.ComandSyntax(sender);
-									return true;
-								}
+									if (sender instanceof Player) {
+										SpawnCommand.spawncommand(sender, args);
+										return true;
+									} else {
+										InfoDisplays.MustBePlayer(sender);
+										InfoDisplays.ComandSyntax(sender);
+										return true;
+									}
 							} else
 								if ((args.length == 1) && args[0].equalsIgnoreCase("help")) {
 									InfoDisplays.ComandSyntax(sender);
