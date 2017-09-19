@@ -7,8 +7,8 @@ commands:
    rms:
       description: Spawns mobs on or near a player from anywhere on the server.
       usage: |
-        /rms all [mob] [amount] [distance] - Spawns on all players
-        /rms [player] [mob] [amount] [distance] - Spawns on other
+        /rms all [mob] [amount] [distance] [true/false](Glow) - Spawns on all players
+        /rms [player] [mob] [amount] [distance] [true/false](Glow) - Spawns on other
         /rms [mob] [amount] [distance] - Spawns on self
         /rms glow [on/off] - Toggles glow spawning on or off
         /rms safespawn [on/off] - Toggles safe spawning on/off
