@@ -1,5 +1,6 @@
 name: RemoteMobSpawn
 version: 4.0.0.0r1-SNAPSHOT
+api-version: 1.15
 description: Spawns mobs on or near a player from anywhere on the server.
 author: pyropyro78
 main: com.pyromanticgaming.remotemobspawn.RemoteMobSpawn
