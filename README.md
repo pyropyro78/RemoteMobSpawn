@@ -10,6 +10,10 @@ Utilize command blocks for events to allow for automated spawning of mobs. This 
 #### RemoteMobSpawn v3.0.0.0 Tested On:
 • 1.7.2 / 1.8 / 1.9 / 1.10 / 1.11 / 1.12
 
+#### RemoteMobSpawn v4.0.0.0rxx-SNAPSHOT Not Always Tested.
+Use Builds on Jenkins with that in mind. 
+Jenkins is currently only open to some, that will change with time.
+    
 #### Features:
 • Spawn mobs on other players
 
